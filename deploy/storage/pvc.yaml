@@ -1,0 +1,27 @@
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mytomcat-pvc-1
+spec:
+  storageClassName: nfs-storageclass
+  accessModes:
+  - ReadWriteMany
+  resources:
+    requests:
+      storage: 500Mi
+
+
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mytomcat-pvc-2
+spec:
+  storageClassName: nfs-storageclass
+  accessModes:
+  - ReadWriteMany
+  resources:
+    requests:
+      storage: 500Mi

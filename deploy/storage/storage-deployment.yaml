@@ -1,0 +1,35 @@
+kind: Deployment
+apiVersion: extensions/v1beta1
+metadata:
+  name: nfs-cluster-provisioner
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: nfs-provisioner
+    spec:
+      serviceAccount: nfs-account
+      containers:
+      - name: nfs-provisioner
+        image: registry.cn-shenzhen.aliyuncs.com/ca1/shoogoome:nfs
+        # imagePullPolicy: Never
+        volumeMounts:
+          - name: nfs-client-1
+            mountPath: /persistent-volumes/xx.xxx.xx.xxx
+        env:
+          - name: PROVISIONER_NAME
+            value: shoogoome.com/nfs
+          - name: NFS_SERVER
+            value: xx.xxx.xx.xxx
+          - name: NFS_PATH
+            value: /xxxxxxxx
+          - name: LOG
+            value: "true"
+      volumes:
+        - name: nfs-client-1
+          nfs:
+            server: xx.xxx.xx.xxx
+            path: /xxxxxx
